@@ -155,7 +155,7 @@ export const doStar = (payload) =>
         });
 
 export const uploadFile = (payload) =>
-    fetch(`${api}/upload`, {
+    fetch(`${api}/files/upload`, {
         method: 'POST',
         body: payload
     }).then(res => res.json())

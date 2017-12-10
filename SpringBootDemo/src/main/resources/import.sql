@@ -1,1 +1,1 @@
-insert into USER (name,email,password) values ('Test','a','a');
+insert into USER (password,firstname,lastname,username) values ('a','a','a','a');
