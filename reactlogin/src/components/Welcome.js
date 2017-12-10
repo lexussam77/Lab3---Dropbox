@@ -68,7 +68,7 @@ class Welcome extends Component {
         // 	API.getFiles()
             .then((data2) => {
                 this.setState({
-                    images_star: data2.file
+                    images_star: data2
                 });
             })
     };
@@ -112,7 +112,7 @@ class Welcome extends Component {
             //getUserFiles: this.getUserFiles
         });
        this.handleFileUser(this.props);
-    //   this.handleFileStar(this.props);
+       this.handleFileStar(this.props);
 
         //document.title = `Welcome, ${this.state.username} !!`;
        //this.getUserFiles(this.state);
@@ -122,7 +122,7 @@ class Welcome extends Component {
     	
         document.title = `Welcome, ${this.state.username} !!`;
         this.handleFileUser(this.props);
-   //     this.handleFileStar(this.props);
+        this.handleFileStar(this.props);
        // this.getUserFiles(this.state);
         /*API.getImages()
         .then((data) => {
@@ -147,7 +147,8 @@ class Welcome extends Component {
             <div>
                 <PageHeader/>
 
-
+                <Starred/>
+                <StarredFiles items={this.state.images_star} route={this.props.route} username={this.props.username}/>
                 <Recent/>
                 <FileContainer items={this.state.images} route={this.props.route} username={this.props.username}/>
 

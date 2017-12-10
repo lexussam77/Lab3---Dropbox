@@ -53,7 +53,7 @@ export const editProfile = (payload) =>
 
 
 export const doShare = (payload) =>
-    fetch(`${api}/doShare`, {
+    fetch(`${api}/files/doShare`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -112,7 +112,7 @@ export const doGetList = (payload) =>
             return error;
         });
 export const doGetStar = (payload) =>
-    fetch(`${api}/doGetStar`,{
+    fetch(`${api}/files/doGetStar`,{
         method: 'POST',
         headers: {
             ...headers,
@@ -126,7 +126,7 @@ export const doGetStar = (payload) =>
         });
 
 export const doDelStar = (payload) =>
-    fetch(`${api}/doDelStar`,{
+    fetch(`${api}/files/doDelStar`,{
         method: 'POST',
         headers: {
             ...headers,
@@ -139,7 +139,7 @@ export const doDelStar = (payload) =>
             return error;
         });
 export const doStar = (payload) =>
-    fetch(`${api}/doStar`, {
+    fetch(`${api}/files/doStar`, {
         method: 'POST',
         headers: {
             ...headers,

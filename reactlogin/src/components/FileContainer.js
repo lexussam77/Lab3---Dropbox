@@ -127,8 +127,8 @@ class FileContainer extends Component {
         handleStar = (file2) => {
 
             var file = new FormData();
-           // file.append('item', file2);
-           // file.append('username',this.state.username);
+            file.append('item', file2);
+            file.append('username',this.state.username);
             API.doStar({username: this.props.username, item: file2 })
             .then((status) => {
                 if (status === 201) {
