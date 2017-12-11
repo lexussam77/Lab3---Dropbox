@@ -230,4 +230,18 @@ public class FileController {
         //  um.setUsername(username);
         //  return um;
     }
+    @PostMapping(path="/createFolder",consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
+    public  ResponseEntity<?> addNewUser (@RequestBody String user) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        JSONObject jsonObject = new JSONObject(user);
+        //userService.addUser(user);
+        System.out.println(user);
+        //File dir = new File(uploads+File.separator+user.getusername());
+        File folder= new File(uploads+File.separator+jsonObject.getString("username")+File.separator+jsonObject.getString("folder"));
+        boolean successful = folder.mkdir();
+        //boolean successfulstar = dirstar.mkdir();
+        System.out.println("Saved" + "user"+ user +"json"+ jsonObject);
+        return new ResponseEntity(null,HttpStatus.CREATED);
+    }
 }
