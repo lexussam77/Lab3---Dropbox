@@ -3,6 +3,8 @@ package com.controller;
 import com.entity.Files;
 import com.entity.User;
 import com.entity.UserModel;
+import com.service.UserService;
+//import com.service.UserService;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 //import org.apache.commons
@@ -29,6 +31,7 @@ import java.util.List;
 public class FileController {
    // @Autowired
     public User user;
+  //  private UserService userService;
     String uploads = System.getProperty("user.dir")+"\\src\\main\\Uploads";
     @PostMapping(path="/myfiles", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<String> getAllfiles(@RequestBody String userdata, HttpSession session) {
@@ -191,6 +194,8 @@ public class FileController {
     @PostMapping(path="/doShare",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity doShare( @RequestBody String username, HttpSession session) {
         // This returns a JSON with the users
+        UserService userService = new UserService();
+      //  private UserService userService;
         JSONObject jsonObject = new JSONObject(username);
         //   UserModel um = new UserModel();
         System.out.println("username"+username);
@@ -198,10 +203,10 @@ public class FileController {
        /* System.out.println(jsonObject.getString("username"));
         session.setAttribute("name",jsonObject.getString("username"));
         System.out.println(session.getAttribute("name"));*/
-        File file = new File(uploads+"\\"+jsonObject.getString("username")+"\\"+jsonObject.getString("activeItemName"));
+        /*File file = new File(uploads+"\\"+jsonObject.getString("username")+"\\"+jsonObject.getString("activeItemName"));
         try{
             //  System.out.println("username1"+username);
-            file.renameTo(new File(uploads+File.separator+jsonObject.getString("emails")+File.separator+jsonObject.getString("activeItemName")));
+            file.renameTo (new File(uploads+File.separator+jsonObject.getString("emails")+File.separator+jsonObject.getString("activeItemName")));
 
         //    file.delete();
             System.out.println("File moved successfully");
@@ -210,7 +215,15 @@ public class FileController {
             System.out.println("Failed to move the file");
             System.out.println(e);
         }
+*/
+        File source = new File("C:\\Users\\nikos7\\Desktop\\files\\sourcefile1.txt");
 
+        File dest = new File("C:\\Users\\nikos7\\Desktop\\files\\destfile1.txt");
+
+        source = new File("C:\\Users\\Rohit\\Desktop\\combine\\test.txt");
+        dest = new File("C:\\Users\\Rohit\\Desktop\\combine\\out.txt");
+
+        userService.copyFileUsingFileChannels(source, dest);
         //  String userResult=username;
         //  System.out.println("username3"+username);
         return new ResponseEntity(HttpStatus.OK);
