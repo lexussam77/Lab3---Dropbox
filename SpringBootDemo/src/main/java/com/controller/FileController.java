@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 //import java.io.File.renameTo;
@@ -31,7 +32,7 @@ import java.util.List;
 public class FileController {
    // @Autowired
     public User user;
-  //  private UserService userService;
+   public UserService userService;
     String uploads = System.getProperty("user.dir")+"\\src\\main\\Uploads";
     @PostMapping(path="/myfiles", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<String> getAllfiles(@RequestBody String userdata, HttpSession session) {
@@ -94,9 +95,9 @@ public class FileController {
     public @ResponseBody List<String> getAllfolders(@RequestBody String uname) {
         // This returns a JSON with the users
         JSONObject jsonObject = new JSONObject(uname);
-        System.out.println(jsonObject.getString("uname"));
+        System.out.println(jsonObject.getString("username"));
         List<String> results = new ArrayList<String>();
-        File[] files = new File(uploads+"\\"+jsonObject.getString("uname")).listFiles();
+        File[] files = new File(uploads+"\\"+jsonObject.getString("username")).listFiles();
 //If this pathname does not denote a directory, then listFiles() returns null.
 
         for (File file : files) {
@@ -194,7 +195,7 @@ public class FileController {
     @PostMapping(path="/doShare",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity doShare( @RequestBody String username, HttpSession session) {
         // This returns a JSON with the users
-        UserService userService = new UserService();
+        //UserService userService = new UserService();
       //  private UserService userService;
         JSONObject jsonObject = new JSONObject(username);
         //   UserModel um = new UserModel();
@@ -220,10 +221,15 @@ public class FileController {
 
         File dest = new File("C:\\Users\\nikos7\\Desktop\\files\\destfile1.txt");
 
-        source = new File("C:\\Users\\Rohit\\Desktop\\combine\\test.txt");
-        dest = new File("C:\\Users\\Rohit\\Desktop\\combine\\out.txt");
+        source = new File(uploads+File.separator+jsonObject.getString("username")+File.separator+jsonObject.getString("activeItemName"));
+        dest = new File(uploads+File.separator+jsonObject.getString("emails")+File.separator+jsonObject.getString("activeItemName"));
 
-        userService.copyFileUsingFileChannels(source, dest);
+        try {
+            userService.copyFileUsingFileChannels(source,dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("file not shared");
+        }
         //  String userResult=username;
         //  System.out.println("username3"+username);
         return new ResponseEntity(HttpStatus.OK);

@@ -38,7 +38,7 @@ public class UserService {
     }
 
 
-    public void copyFileUsingFileChannels(File source, File dest)
+    public static void copyFileUsingFileChannels(File source, File dest)
             throws IOException {
         FileChannel inputChannel = null;
         FileChannel outputChannel = null;
@@ -46,9 +46,14 @@ public class UserService {
             inputChannel = new FileInputStream(source).getChannel();
             outputChannel = new FileOutputStream(dest).getChannel();
             outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-        } finally {
+        }
+        catch (Exception e){
+            System.out.println("Failed to move the file");
+            System.out.println(e);
+        }finally {
             inputChannel.close();
             outputChannel.close();
         }
+
     }
 }
