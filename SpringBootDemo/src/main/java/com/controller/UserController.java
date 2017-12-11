@@ -58,6 +58,7 @@ public class UserController {
         System.out.println(session.getAttribute("name"));
         List<User> userResult=userService.login(jsonObject.getString("username"),jsonObject.getString("password"));
         System.out.println(userResult.size());
+        System.out.println(userResult);
         if(userResult.size()>0){
             System.out.println("HttpStatus.ok");
             return new ResponseEntity(HttpStatus.OK);

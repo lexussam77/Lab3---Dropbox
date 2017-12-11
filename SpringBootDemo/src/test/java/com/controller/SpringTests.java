@@ -1,4 +1,4 @@
-package com;
+package com.controller;
 
 import com.controller.UserController;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import com.in28minutes.springboot.service.StudentService;
 public class SpringTests {
 
     @Autowired
-    private MockMvc mockMvc;
+     MockMvc mockMvc;
 
     @MockBean
     private UserController userController;
@@ -46,9 +46,9 @@ public class SpringTests {
     public void retrieveDetailsForCourse() throws Exception {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/dologin")
-                .accept(MediaType.APPLICATION_JSON_VALUE).content(user)
-                .contentType(MediaType.APPLICATION_JSON_VALUE);
+                .post("/doLogin")
+                .accept(MediaType.APPLICATION_JSON).content(user)
+                .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
